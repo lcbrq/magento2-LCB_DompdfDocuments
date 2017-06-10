@@ -1,0 +1,2 @@
+/view/adminhtml/templates/invoice/*
+!/view/adminhtml/templates/invoice/default.phtml

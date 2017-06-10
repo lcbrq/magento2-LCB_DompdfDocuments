@@ -45,6 +45,7 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
      * @param \Magento\Sales\Model\Order\Address\Renderer $addressRenderer
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
+     * @param \Magento\Framework\View\Layout $layout
      * @param array $data
      */
     public function __construct(
@@ -89,13 +90,13 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
      */
     public function getPdf($invoices = [])
     {
-        if (!$this->_scopeConfig->getValue('sales_pdf/invoice/dompdf_document')) {
-            return parent::getPdf($invoices);
+        if (!$template = $this->_scopeConfig->getValue('sales_pdf/invoice/dompdf_document')) {
+           return parent::getPdf($invoices);
         }
 
         $html = '';
         foreach ($invoices as $invoice) {
-            $html .= $this->_layout->createBlock('Magento\Framework\View\Element\Template')->setInvoice($invoice)->setTemplate('LCB_DompdfDocuments::invoice.phtml')->toHtml();
+            $html .= $this->_layout->createBlock('Magento\Framework\View\Element\Template')->setInvoice($invoice)->setTemplate("LCB_DompdfDocuments::invoice/$template.phtml")->toHtml();
         }
 
         $domPdf = new Dompdf();

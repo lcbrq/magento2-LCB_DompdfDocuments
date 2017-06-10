@@ -12,7 +12,7 @@
                 <field id="dompdf_document" translate="label" type="select" sortOrder="2" showInDefault="1"
                        showInWebsite="0" showInStore="0" canRestore="0">
                     <label>Dompdf usage</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <source_model>LCB\DompdfDocuments\Model\Config\Source\Templates\Invoice</source_model>
                 </field>
             </group>
         </section>

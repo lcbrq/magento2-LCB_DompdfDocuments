@@ -96,7 +96,7 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
 
         $html = '';
         foreach ($invoices as $invoice) {
-            $html .= $this->_layout->createBlock('Magento\Framework\View\Element\Template')->setInvoice($invoice)->setTemplate("LCB_DompdfDocuments::invoice/$template.phtml")->toHtml();
+            $html .= $this->_layout->createBlock('LCB\DompdfDocuments\Block\Invoice')->setInvoice($invoice)->setTemplate("LCB_DompdfDocuments::invoice/$template.phtml")->toHtml();
         }
 
         $domPdf = new Dompdf();

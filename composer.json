@@ -1,11 +1,24 @@
 {
     "name": "lcbrq/magento2-dompdf-documents",
     "description": "Print your Magento 2 sales documents from html templates",
+    "authors": [
+        {
+            "name": "Silpion Tomasz Gregorczyk",
+            "email": "tom@lcbrq.com"
+        },
+        {
+            "name": "Marek Daniłowicz",
+            "email": "mark@lcbrq.com"
+        },
+        {
+            "name": "Anna Włodarz",
+            "email": "ann@lcbrq.com"
+        }
+    ],
     "require": {
-        "php": "~5.5.0|~5.6.0",
-        "magento/module-store": "*",
-        "magento/module-theme": "*",
+        "php": ">=5.5.0",
         "dompdf/dompdf": "*",
+        "magento/framework": ">=100.0.0",
         "magento/magento-composer-installer": "*"
     },
     "type": "magento2-module",
@@ -20,5 +33,11 @@
                 "LCB/DompdfDocuments"
             ]
         ]
+    },
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "LCB\\DompdfDocuments\\": ""
+        }
     }
 }

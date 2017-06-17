@@ -111,7 +111,14 @@ $method = $payment->getMethodInstance();
 </table>
 <table class="prod_details">
     <tbody>
-        <tr  class="prod_details_header"><th><?php echo __('Products') ?></th><th class="text-center"><?php echo __('SKU') ?></th><th class="text-center"><?php echo __('Price') ?></th><th class="text-center"><?php echo __('Qty') ?></th><th class="text-center"><?php echo __('Tax') ?></th><th class="text-center"><?php echo __('Subtotal') ?></th></tr>
+        <tr  class="prod_details_header">
+            <th><?php echo __('Products') ?></th>
+            <th class="text-right"><?php echo __('SKU') ?></th>
+            <th class="text-right"><?php echo __('Price') ?></th>
+            <th class="text-right"><?php echo __('Qty') ?></th>
+            <th class="text-right"><?php echo __('Tax') ?></th>
+            <th class="text-right"><?php echo __('Subtotal') ?></th>
+        </tr>
         <?php
         foreach ($invoice->getAllItems() as $item):
             if ($item->getOrderItem()->getParentItem()) {

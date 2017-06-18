@@ -47,7 +47,7 @@ class Invoice implements \Magento\Framework\Option\ArrayInterface
                 continue;
             }
             preg_match('/invoice\/(.*?).phtml/', $template[3], $match);
-            $templates[] = ['value' => $match[1], 'label' => ucfirst($match[1]) . ' ' . __("Template")];
+            $templates[] = ['value' => $template[4], 'label' => ucfirst($match[1]) . ' ' . __("Template")];
         }
         
         return $templates;

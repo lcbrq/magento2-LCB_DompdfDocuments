@@ -2,7 +2,7 @@
 
 ## Usage
 
-Upload your custom invoice file to app/code/LCB/DompdfDocuments/view/adminhtml/templates/invoice folder  
+Specify your custom invoice file in your theme DompdfDocuments/templates/invoice or module DompdfDocuments/view/adminhtml/templates/invoice directory
 and set it in PDF Print-outs configuration section
 
 ![Dompdf invoice configuration](media/configuration.png?raw=true)  

@@ -7,6 +7,10 @@ and set it in PDF Print-outs configuration section
 
 ![Dompdf invoice configuration](media/configuration.png?raw=true)  
 
+## Installation
+
+For non composer installation you have to add dompdf/dompdf dependency manually with `composer require dompdf/dompdf`
+
 ## Disclaimer
 
 Plugin was provided on an "as is" basis and the user assumes liability for its usage.  

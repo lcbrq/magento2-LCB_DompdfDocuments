@@ -23,7 +23,10 @@ class Invoice extends \Magento\Framework\View\Element\Template {
      * @param array $data
      */
     public function __construct(
-    \Magento\Backend\Block\Template\Context $context, \Magento\Sales\Model\Order\Address\Renderer $addressRenderer, \Magento\Framework\App\Filesystem\DirectoryList $directoryList, array $data = []
+        \Magento\Backend\Block\Template\Context $context, 
+        \Magento\Sales\Model\Order\Address\Renderer $addressRenderer, 
+        \Magento\Framework\App\Filesystem\DirectoryList $directoryList, 
+        array $data = []
     )
     {
         $this->_addressRenderer = $addressRenderer;
@@ -78,42 +81,5 @@ class Invoice extends \Magento\Framework\View\Element\Template {
     {
         return $this->_directoryList->getPath($dir);
     }
-
-    /**
-     * Get relative path to template
-     * 
-     * @param string $template
-     * @return string
-     */
-    public function getTemplateFile($template = null)
-    {
-        if (!$template) {
-            $template = $this->getTemplate();
-        }
-        return $template;
-    }
-
-    /**
-     * Retrieve block view from file (template)
-     *
-     * @param string $fileName
-     * @return string
-     */
-    public function fetchView($fileName)
-    {       
-        $relativeFilePath = $this->getRootDirectory()->getRelativePath($fileName);
-              
-        \Magento\Framework\Profiler::start(
-            'TEMPLATE:' . $fileName,
-            ['group' => 'TEMPLATE', 'file_name' => $relativeFilePath]
-        );
-            $extension = pathinfo($fileName, PATHINFO_EXTENSION);
-            $templateEngine = $this->templateEnginePool->get($extension);
-            $html = $templateEngine->render($this->templateContext, $fileName, $this->_viewVars);
-        
-        \Magento\Framework\Profiler::stop('TEMPLATE:' . $fileName);
-        return $html;
-    }
-
-
+    
 }

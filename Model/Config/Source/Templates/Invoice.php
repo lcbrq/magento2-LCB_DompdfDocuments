@@ -43,15 +43,21 @@ class Invoice implements \Magento\Framework\Option\ArrayInterface
         ];
         
         foreach ($this->filesUtils->getPhtmlFiles(true, false) as $key => $template) {
-            if($template[2] !== "LCB_DompdfDocuments"){
+
+            $moduleName = $template[2];
+
+            if ($moduleName !== "LCB_DompdfDocuments") {
                 continue;
             }
+
             preg_match('/invoice\/(.*?).phtml/', $template[3], $match);
-            $templates[] = ['value' => $template[4], 'label' => ucfirst($match[1]) . ' ' . __("Template")];
+
+            $fileName = $match[1];
+
+            $templates[$fileName] = ['value' => $fileName, 'label' => ucfirst($fileName) . ' ' . __("Template")];
         }
-        
+
         return $templates;
-        
     }
 
 }

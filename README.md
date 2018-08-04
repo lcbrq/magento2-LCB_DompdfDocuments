@@ -2,7 +2,7 @@
 
 ## Usage
 
-Specify your custom invoice file in your theme DompdfDocuments/templates/invoice or module DompdfDocuments/view/adminhtml/templates/invoice directory
+Specify your custom invoice file in your frontend store theme DompdfDocuments/templates/invoice or module DompdfDocuments/view/adminhtml/templates/invoice directory 
 and set it in PDF Print-outs configuration section
 
 ![Dompdf invoice configuration](media/configuration.png?raw=true)  

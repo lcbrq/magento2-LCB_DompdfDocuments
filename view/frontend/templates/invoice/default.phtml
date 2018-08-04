@@ -1,0 +1,148 @@
+<style>
+    body {
+        font-size: 12px;
+        font-weight: normal;
+        margin: 0.5cm 0;
+        color: #000;
+    }
+    .text-left {
+        text-align: left;
+    }
+    .text-right {
+        text-align: right;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .invoice_data,
+    .paym_data,
+    .cost_details,
+    .prod_details {
+        width: 100%;
+        text-align: left;
+        font-size: 12px;
+        border-collapse: collapse;
+    }
+    .paym_data td,
+    .cost_details td,
+    .prod_details td {
+        padding: 2mm 3mm;
+    }
+    .invoice_data {
+        padding: 2mm 3mm;
+    }
+    .paym_data th,
+    .cost_details th {
+        padding: 2mm 3mm;
+        font-size: 13px;
+    }
+    .invoice_data {
+        background-color: #898989;
+        color: #fff;
+    }
+    .paym_data,
+    .cost_details {
+        border: 1px solid #959595;
+    }
+    .paym_data th,
+    .cost_details th {
+        background: #ebebeb;
+        border: 1px solid #959595;
+    }
+    .paym_data {
+        margin: 5mm 0 10mm 0;
+    }
+    .paym_data td,
+    .cost_details td {
+        background: #fff;
+    }
+    .prod_details .prod_details_header {
+        background: #ebebeb;
+    }
+    .prod_details .prod_details_header th {
+        font-weight: normal;
+        padding: 1mm 3mm;
+        border: 1px solid #959595;
+        border-left: none;
+        border-right: none;
+    }
+    .prod_details .prod_details_header th:first-child {
+        border-left: 1px solid #959595;
+    }
+    .prod_details .prod_details_header th:last-child {
+        border-right: 1px solid #959595;
+    }
+    .prod_details tbody {
+        line-height: 2;
+    }
+    .totals td {
+        padding-bottom: 0;
+    }
+    .totals .first-row {
+        padding-top: 10mm;
+    }
+
+    .totals tr td:first-child {
+        padding-right: 10mm;
+    }
+</style>
+
+
+<?php
+$invoice = $block->getInvoice();
+$order = $invoice->getOrder();
+$billingAddress = $order->getBillingAddress();
+$shippingAddress = $order->getShippingAddress();
+$payment = $order->getPayment();
+$method = $payment->getMethodInstance();
+?>
+<table class="invoice_data">
+    <tr><th><?php echo sprintf(__('Invoice %s'), $invoice->getIncrementId()) ?></th></tr>
+    <tr><th><?php echo sprintf(__('Order %s'), $order->getIncrementId()) ?></th></tr>
+    <tr><th><?php echo sprintf(__('Order Date: %s'), $order->getCreatedAt()) ?></th></tr>
+</table>
+<table class="cost_details">
+    <tr><th><?php echo __('Sold to:') ?></th><th><?php echo __('Ship to:') ?></th></tr>
+    <tr><td><?php echo $block->getFormattedAddress($billingAddress); ?></td><td><?php echo $block->getFormattedAddress($shippingAddress); ?></td></tr>
+</table>
+<table class="paym_data">
+    <tr><th><?php echo __('Payment Method:') ?></th><th><?php echo __('Shipping Method:') ?></th></tr>
+    <tr><td><?php echo $method->getTitle(); ?></td><td><?php echo $order->getShippingDescription(); ?></td></tr>
+</table>
+<table class="prod_details">
+    <tbody>
+        <tr  class="prod_details_header">
+            <th><?php echo __('Products') ?></th>
+            <th class="text-right"><?php echo __('SKU') ?></th>
+            <th class="text-right"><?php echo __('Price') ?></th>
+            <th class="text-right"><?php echo __('Qty') ?></th>
+            <th class="text-right"><?php echo __('Tax') ?></th>
+            <th class="text-right"><?php echo __('Subtotal') ?></th>
+        </tr>
+        <?php
+        foreach ($invoice->getAllItems() as $item):
+            if ($item->getOrderItem()->getParentItem()) {
+                continue;
+            }
+            ?>
+            <tr>
+                <td><?php echo $item->getName(); ?></td>
+                <td class="text-right"><?php echo $item->getSku(); ?></td>
+                <td class="text-right"><?php echo $block->getFormattedPrice($item->getPrice()); ?></td>
+                <td class="text-right"><?php echo intval($item->getQty()); ?></td>
+                <td class="text-right"><?php echo intval($item->getOrderItem()->getTaxPercent()); ?>%</td>
+                <td class="text-right"><?php echo $block->getFormattedPrice($item->getRowTotal()) ?></td>
+            </tr>                
+        <?php endforeach; ?>
+    </tbody>
+    <tfoot class="totals">
+        <tr>
+            <td colspan="5" class="text-right first-row"><?php echo __('Subtotal:'); ?></td>
+            <td class="text-right first-row"><?php echo $block->getFormattedPrice($invoice->getSubtotal()); ?></td>
+        </tr>
+        <tr>
+            <td colspan="5" class="text-right"><?php echo __('Grand Total:'); ?></td>
+            <td class="text-right"><?php echo $block->getFormattedPrice($invoice->getGrandTotal()); ?></td>
+        </tr>
+    </tfoot>
+</table>

@@ -22,18 +22,10 @@
         "magento/magento-composer-installer": "*"
     },
     "type": "magento2-module",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": [
-        "OSL"
+        "OSL-3.0"
     ],
-    "extra": {
-        "map": [
-            [
-                "*",
-                "LCB/DompdfDocuments"
-            ]
-        ]
-    },
     "autoload": {
         "files": ["registration.php"],
         "psr-4": {

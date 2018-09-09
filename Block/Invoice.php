@@ -81,5 +81,16 @@ class Invoice extends \Magento\Framework\View\Element\Template {
     {
         return $this->_directoryList->getPath($dir);
     }
-    
+
+    /**
+     * Get invoice language
+     * 
+     * @return string
+     */
+    public function getLocaleCode()
+    {
+        $invoice = $this->getInvoice();
+        return $this->_scopeConfig->getValue('general/locale/code', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $invoice->getStoreId());
+    }
+
 }
